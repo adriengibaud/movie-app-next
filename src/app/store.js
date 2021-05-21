@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../features/counter/counterSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import themeReducer from '../reducers/themeSlice';
+import genreReducer from '../reducers/genreSlice';
+import filmsReducer from '../reducers/filmsSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    films: filmsReducer,
+    genre: genreReducer,
+    theme: themeReducer,
   },
-})
+});
