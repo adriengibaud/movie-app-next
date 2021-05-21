@@ -9,7 +9,7 @@ import {
 } from '../reducers/filmsSlice';
 
 const film = () => {
-  const [activeFilm, setActiveFilm] = useState('');
+  const [activeFilm, setActiveFilm] = useState({ original_title: '' });
   const dispatch = useDispatch();
   const status = useSelector(statusFilms);
   const films = useSelector(selectFilms);
