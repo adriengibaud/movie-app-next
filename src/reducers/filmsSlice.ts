@@ -21,7 +21,7 @@ export const fetchFilmByName = createAsyncThunk(
 
 export const fetchFilmById = createAsyncThunk(
   'films/fetchById',
-  async (id: string | number, thunkAPI) => {
+  async (id: string | number | string[], thunkAPI) => {
     const filmInfosResponse = await filmsApi.getById(id);
     const filmCast = await filmsApi.getCast(id);
     const filmRecommendations = await filmsApi.getRecommendations(id);
