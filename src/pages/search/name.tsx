@@ -46,6 +46,7 @@ const name = () => {
         <>
           {films.map((film) => (
             <FilmCard
+              key={film.id}
               clickHandler={() => router.push(`/film?id=${film.id}`)}
               id={film.id}
               title={film.original_title}

@@ -35,8 +35,8 @@ export const filmsSlice = createSlice({
   name: 'films',
   initialState,
   reducers: {},
-  extraReducers: {
-    [fetchFilmByName.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchFilmByName.fulfilled, (state, action) => {
       state.status = 'fulfilled';
       state.page = action.payload.page;
       state.total_pages = action.payload.total_pages;
@@ -45,17 +45,17 @@ export const filmsSlice = createSlice({
       } else {
         state.films = action.payload.results;
       }
-    },
-    [fetchFilmByName.pending]: (state, action) => {
-      state.status = 'pending';
-    },
-    [fetchFilmById.fulfilled]: (state, action) => {
-      state.status = 'fulfilled';
-      state.activeFilm = action.payload;
-    },
-    [fetchFilmById.pending]: (state, action) => {
-      state.status = 'pending';
-    },
+    }),
+      builder.addCase(fetchFilmByName.pending, (state, action) => {
+        state.status = 'pending';
+      }),
+      builder.addCase(fetchFilmById.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        state.activeFilm = action.payload;
+      }),
+      builder.addCase(fetchFilmById.pending, (state, action) => {
+        state.status = 'pending';
+      });
   },
 });
 

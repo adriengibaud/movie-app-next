@@ -29,6 +29,7 @@ const GenreMenu = () => {
           .filter((e) => e.isActive === true)
           .map((e) => (
             <Chip
+              key={e.id}
               cancelButton={true}
               text={e.name}
               clickHandler={() => setInactive(e.id)}
@@ -37,7 +38,11 @@ const GenreMenu = () => {
       </ChipContainer>
       <Select onChange={submit}>
         {genre.map((e) => {
-          return <Option value={e.id}>{e.name}</Option>;
+          return (
+            <Option key={e.id} value={e.id}>
+              {e.name}
+            </Option>
+          );
         })}
       </Select>
     </Container>
