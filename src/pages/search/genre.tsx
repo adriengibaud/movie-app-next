@@ -1,0 +1,54 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import {
+  fetchFilmByGenre,
+  selectFilms,
+  selectPageFilms,
+  selectTotalPageFilms,
+  statusFilms,
+} from '../../reducers/filmsSlice';
+import ResultsBody from '../../components/Results/ResultsBody';
+
+const genre = () => {
+  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const status = useSelector(statusFilms);
+  const films = useSelector(selectFilms);
+  const totalPages = useSelector(selectTotalPageFilms);
+  const { id } = router.query;
+
+  const search = (query) => {
+    dispatch(fetchFilmByGenre(query));
+  };
+
+  useEffect(() => {
+    if (id) search({ id: id.toString().replace(/ /g, '%2c'), page });
+  }, [id, page]);
+
+  const loadMoreResults = () => {
+    dispatch(
+      fetchFilmByGenre({
+        id: id.toString().replace(/ /g, '%2c'),
+        page: page + 1,
+      })
+    );
+    setPage(page + 1);
+  };
+
+  return (
+    <ResultsBody
+      text={true}
+      size='big'
+      status={status}
+      totalPages={totalPages}
+      type='film'
+      moreResults={() => loadMoreResults()}
+      data={films}
+    />
+  );
+};
+
+export default genre;

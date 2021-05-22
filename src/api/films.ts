@@ -26,9 +26,16 @@ const getRecommendations = async (id) => {
   return response.data;
 };
 
+const getByGenre = async (infos) => {
+  const url = `${baseUrl}discover/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&sort_by=vote_count.desc&page=${infos.page}&with_genres=${infos.id}&language=en-us`;
+  const response = await axios.get(url);
+  return response.data;
+};
+
 export default {
   getByName,
   getById,
   getCast,
+  getByGenre,
   getRecommendations,
 };

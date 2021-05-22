@@ -28,6 +28,7 @@ const Body = styled.div`
   max-width: 100vw;
   overflow-y: hidden;
   min-height: calc(100vh - 64px);
+  background: ${({ theme }) => theme.colors.primary};
   overflow-x: hidden;
   display: flex;
   flex-direction: column;

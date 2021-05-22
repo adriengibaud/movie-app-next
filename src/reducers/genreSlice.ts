@@ -22,13 +22,25 @@ export const genreSlice = createSlice({
       );
       return newArray;
     },
+    setAllGenreInactive: (state) => {
+      const newArray = state.map((element) =>
+        element.isActive === true ? { ...element, isActive: false } : element
+      );
+      return newArray;
+    },
   },
 });
 
-export const { setGenre, setGenreActive, setGenreInactive } =
-  genreSlice.actions;
+export const {
+  setGenre,
+  setGenreActive,
+  setGenreInactive,
+  setAllGenreInactive,
+} = genreSlice.actions;
 
 export const selectGenre = (state) => state.genre;
+export const selectActiveGenre = (state) =>
+  state.genre.filter((e) => e.isActive === true);
 
 export default genreSlice.reducer;
 

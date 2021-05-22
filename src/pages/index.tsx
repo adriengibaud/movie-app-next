@@ -12,14 +12,6 @@ export default function Home() {
   const dispatch = useDispatch();
   const genre = useSelector(selectGenre);
 
-  useEffect(() => {
-    if (genre.length === 0) {
-      dispatch(fetchGenre());
-      console.log(genre);
-    }
-    dispatch(fetchFilmByName({ name: 'sa', page: 1 }));
-  });
-
   return (
     <>
       <Head>

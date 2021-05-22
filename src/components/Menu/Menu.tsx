@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import UserAvatar from '../NavBar/UserAvatar';
 import SearchField from '../SearchField';
 import GenreMenu from './GenreMenu';
 import { useRouter } from 'next/router';
+import {
+  selectActiveGenre,
+  setAllGenreInactive,
+  setGenreInactive,
+} from '../../reducers/genreSlice';
 
 const Menu = ({
   isOpen,
@@ -12,11 +18,15 @@ const Menu = ({
   closeMenu: Function;
 }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const activeGenre = useSelector(selectActiveGenre);
 
   const searchByName = (e) => {
+    console.log('test');
     const title = e.replace(/ /g, '+');
-    console.log(e);
+    if (activeGenre.length > 0) dispatch(setAllGenreInactive());
     router.push(`/search/name?title=${title}`);
+
     closeMenu();
   };
 

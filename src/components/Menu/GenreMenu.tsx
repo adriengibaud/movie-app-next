@@ -1,24 +1,52 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { store } from '../../app/store';
+import { Router, useRouter } from 'next/router';
 import styled from 'styled-components';
 import {
+  fetchGenre,
   selectGenre,
   setGenreActive,
   setGenreInactive,
+  selectActiveGenre,
 } from '../../reducers/genreSlice';
 import Chip from '../Chip';
+import { statusFilms } from '../../reducers/filmsSlice';
 
 const GenreMenu = () => {
-  const genre = useSelector(selectGenre);
   const dispatch = useDispatch();
+  const router = useRouter();
+  const activeGenre = useSelector(selectActiveGenre);
+  const genre = useSelector(selectGenre);
+
+  const status = useSelector(statusFilms);
+
+  useEffect(() => {
+    if (genre.length === 0) {
+      dispatch(fetchGenre());
+    }
+  }, [genre]);
 
   const submit = (e) => {
-    console.log(e.target.value);
     dispatch(setGenreActive(e.target.value));
+    const genre = store.getState();
+    router.push(
+      `/search/genre?id=${genre.genre
+        .filter((e) => e.isActive === true)
+        .map((e) => e.id)
+        .join(' ')}`
+    );
   };
 
   const setInactive = (id) => {
     dispatch(setGenreInactive(id));
+    const genre = store.getState();
+    router.push(
+      `/search/genre?id=${genre.genre
+        .filter((e) => e.isActive === true)
+        .map((e) => e.id)
+        .join(' ')}`
+    );
   };
 
   return (
