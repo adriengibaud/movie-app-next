@@ -55,8 +55,8 @@ const film = () => {
 
               <ActorTitle>Actors</ActorTitle>
               <ActorsNames>
-                {activeFilm.filmCast.cast.slice(0, 4).map((element) => (
-                  <p>{element.name}</p>
+                {activeFilm.filmCast.cast.slice(0, 4).map((element, i) => (
+                  <p key={i}>{element.name}</p>
                 ))}
               </ActorsNames>
 
@@ -116,6 +116,9 @@ const Container = styled.div`
   padding: 3vh 2vw;
   margin: auto;
   max-width: 1200px;
+  @media screen and (max-width: 750px) {
+    padding: 3vh 5vw;
+  }
 `;
 
 const SpinnerContainer = styled.div`
@@ -135,7 +138,7 @@ const Header = styled.header`
   max-height: 450px;
   @media screen and (max-width: 750px) {
     flex-direction: column;
-    max-height: 900px;
+    max-height: 1000px;
     align-items: center;
   }
 `;

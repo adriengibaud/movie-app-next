@@ -25,6 +25,7 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const Body = styled.div`
+  width: 100vw;
   max-width: 100vw;
   overflow-y: hidden;
   min-height: calc(100vh - 64px);
