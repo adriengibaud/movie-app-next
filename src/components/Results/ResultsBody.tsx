@@ -84,6 +84,7 @@ const ResultContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+  overflow-x: hidden;
 `;
 
 const ButtonContainer = styled.div`

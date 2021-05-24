@@ -25,7 +25,7 @@ export default NavBar;
 
 const NavBarContainer = styled.nav`
   z-index: 100;
-  width: 100vw;
+  width: 99.1vw;
   background: ${({ theme }) => theme.colors.primaryDark};
   color: ${({ theme }) => theme.colors.secondary};
   height: 64px;

@@ -97,8 +97,9 @@ const ChipContainer = styled.div`
 `;
 
 const Select = styled.select`
+  font-size: 16px;
   margin-top: 10px;
-  height: 25px;
+  height: 30px;
   width: 100%;
   background: ${({ theme }) => theme.colors.primary};
   border: 1px solid ${({ theme }) => theme.colors.highText};
