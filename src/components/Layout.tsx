@@ -18,7 +18,6 @@ const Layout = ({ children }) => {
           <NavBar menuState={isOpen} closeMenu={() => setIsOpen(!isOpen)} />
           <Menu isOpen={isOpen} closeMenu={() => setIsOpen(!isOpen)} />
           <Body>{children}</Body>
-
           <GlobalStyle />
         </Container>
       </ThemeProvider>
