@@ -27,6 +27,7 @@ const FilmCard = ({ image, size, title, text, clickHandler }: Card) => {
 export default FilmCard;
 
 const CardContainer = styled.div<{ size: string; text: boolean }>`
+  cursor: pointer;
   height: ${({ size, text }) =>
     text === true
       ? (size === 'small' && '172px') ||

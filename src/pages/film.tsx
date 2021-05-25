@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Image from 'next/image';
 import { AiOutlineStar } from 'react-icons/ai';
 import styled from 'styled-components';
@@ -68,8 +69,8 @@ const film = () => {
               </AddToListContainer>
             </Infos>
           </Header>
+          <RecommendationsTitle>Recommandations</RecommendationsTitle>
           <RecommendationsContainer>
-            <RecommendationsTitle>Recommandations</RecommendationsTitle>
             <Recommendations>
               {activeFilm.filmRecommendations.results.map((film) => {
                 return (
@@ -96,6 +97,17 @@ const film = () => {
 
   return (
     <>
+      <Head>
+        <title>
+          Movio your movie companion |{' '}
+          {activeFilm.original_title && activeFilm.original_title}
+        </title>
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap'
+          rel='stylesheet'
+        />
+      </Head>
       {status === 'pending' ? (
         <SpinnerContainer>
           <Spinner />
@@ -112,6 +124,7 @@ export default film;
 const Container = styled.div`
   width: 100%;
   min-height: 100%;
+  overflow-y: scroll;
   background: ${({ theme }) => theme.colors.primary};
   padding: 3vh 2vw;
   margin: auto;
@@ -147,6 +160,8 @@ const ImageContainer = styled.div`
   position: relative;
   width: 300px;
   height: 450px;
+  border-radius: 30px;
+  box-shadow: ${({ theme }) => theme.shadow.sixDp};
   .poster {
     border-radius: 30px;
   }
@@ -215,7 +230,7 @@ const AddToListContainer = styled.div`
 `;
 
 const RecommendationsContainer = styled.div`
-  margin: 30px 0 15px 0;
+  margin: 20px 0 15px 0;
   width: 100%;
   overflow-y: hidden;
   overflow-x: scroll;
@@ -228,7 +243,7 @@ const RecommendationsTitle = styled.h3`
   font-family: Roboto, sans-serif;
   color: ${({ theme }) => theme.colors.highText};
   text-align: center;
-  margin-bottom: 15ipx;
+  margin-top: 20px;
   @media screen and (max-width: 1050px) {
     text-align: left;
   }

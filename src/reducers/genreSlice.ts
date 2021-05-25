@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import genreApi from '../api/genre';
+import genreApi from '../services/genre';
 
 const initialState = [];
 

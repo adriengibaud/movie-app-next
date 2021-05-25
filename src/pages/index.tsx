@@ -1,16 +1,15 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Counter } from '../features/counter/Counter';
-import styles from '../styles/Home.module.css';
-import { fetchGenre, selectGenre } from '../reducers/genreSlice';
+import { selectGenre } from '../reducers/genreSlice';
 import Head from 'next/head';
-import { changeTheme } from '../reducers/themeSlice';
+import { changeTheme, selectTheme } from '../reducers/themeSlice';
 import styled from 'styled-components';
-import { fetchFilmByName } from '../reducers/filmsSlice';
+import ToggleSwitch from '../components/ToggleSwitch';
+import Auth from '../components/Auth';
 
 export default function Home() {
   const dispatch = useDispatch();
   const genre = useSelector(selectGenre);
+  const theme = useSelector(selectTheme);
 
   return (
     <>
@@ -24,7 +23,12 @@ export default function Home() {
       </Head>
       <Test>
         <button onClick={() => dispatch(changeTheme())}>CHANGE THEME</button>
+        <ToggleSwitch
+          clickHandler={() => dispatch(changeTheme())}
+          actived={theme === 'light' ? true : false}
+        />
       </Test>
+      <Auth />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import UserAvatar from '../NavBar/UserAvatar';
 import SearchField from '../SearchField';
 import GenreMenu from './GenreMenu';
@@ -9,6 +10,14 @@ import {
   setAllGenreInactive,
   setGenreInactive,
 } from '../../reducers/genreSlice';
+import { changeTheme, selectTheme } from '../../reducers/themeSlice';
+import ToggleSwitch from '../ToggleSwitch';
+import {
+  selectUserEmail,
+  selectUserImage,
+  selectUserName,
+} from '../../reducers/userSlice';
+import UserPart from './UserPart';
 
 const Menu = ({
   isOpen,
@@ -20,6 +29,10 @@ const Menu = ({
   const router = useRouter();
   const dispatch = useDispatch();
   const activeGenre = useSelector(selectActiveGenre);
+  const theme = useSelector(selectTheme);
+  const userImage = useSelector(selectUserImage);
+  const userName = useSelector(selectUserName);
+  const userEmail = useSelector(selectUserEmail);
 
   const searchByName = (e) => {
     console.log('test');
@@ -35,12 +48,7 @@ const Menu = ({
       <Background onClick={() => closeMenu()} isOpen={isOpen}></Background>
       <MenuContainer isOpen={isOpen} onClick={(e) => e.stopPropagation()}>
         <div className='topSpacing' />
-
-        <User>
-          <UserAvatar size='small' />
-          <UserName>Patrick David</UserName>
-          <UserEmail>patrick.david@gmail.com</UserEmail>
-        </User>
+        <UserPart closeMenu={() => closeMenu()} />
         <Separator />
         <SearchBody>
           <SearchField
@@ -49,6 +57,21 @@ const Menu = ({
           />
           <GenreMenu />
         </SearchBody>
+        <ThemeContainer>
+          <ThemeTitle>Change theme</ThemeTitle>
+          <ToggleContainer>
+            <Icons>
+              <FiSun />
+            </Icons>
+            <ToggleSwitch
+              clickHandler={() => dispatch(changeTheme())}
+              actived={theme === 'light' ? false : true}
+            />
+            <Icons>
+              <FiMoon />
+            </Icons>
+          </ToggleContainer>
+        </ThemeContainer>
       </MenuContainer>
     </>
   );
@@ -113,3 +136,40 @@ const SearchBody = styled.section`
 `;
 
 const GenreBody = styled.div``;
+
+const ThemeContainer = styled.div`
+  margin-left: 20px;
+  height: 150px;
+  margin-right: 20px;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ThemeTitle = styled.div`
+  color: ${({ theme }) => theme.colors.highText};
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+  font: 1.3rem Roboto, sans-serif;
+  margin-bottom: 10px;
+`;
+
+const ToggleContainer = styled.div`
+  height: 30px;
+  width: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+`;
+
+const Icons = styled.div`
+  display: flex;
+  color: ${({ theme }) => theme.colors.highText};
+  font-size: 20px;
+  margin: 5px;
+`;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,8 +10,6 @@ import {
   selectPageFilms,
 } from '../../reducers/filmsSlice';
 import Spinner from '../../components/Spinner';
-import FilmCard from '../../components/Card/FilmCard';
-import Button from '../../components/Button';
 import ResultsBody from '../../components/Results/ResultsBody';
 
 const name = () => {
@@ -40,15 +38,27 @@ const name = () => {
   }, [title]);
 
   return (
-    <ResultsBody
-      text={true}
-      size='big'
-      status={status}
-      totalPages={totalPages}
-      type='film'
-      moreResults={() => loadMoreResult()}
-      data={films}
-    />
+    <>
+      <Head>
+        <title>
+          Movio your movie companion | {films && films.original_title}
+        </title>
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap'
+          rel='stylesheet'
+        />
+      </Head>
+      <ResultsBody
+        text={true}
+        size='big'
+        status={status}
+        totalPages={totalPages}
+        type='film'
+        moreResults={() => loadMoreResult()}
+        data={films}
+      />
+    </>
   );
 };
 

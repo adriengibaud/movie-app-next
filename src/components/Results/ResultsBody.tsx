@@ -49,28 +49,33 @@ const ResultsBody = ({
   };
 
   return (
-    <>
+    <Container>
       {data.length > 0 && <ResultContainer>{body()}</ResultContainer>}
-      {totalPages > 1 && (
-        <ButtonContainer>
-          <Button text={buttonText()} clickHandler={() => moreResults()} />
-        </ButtonContainer>
-      )}
-
       {status === 'pending' && (
-        <SpinnerContainer>
+        <SpinnerContainer loadMoreData={data.length > 0 ? true : false}>
           <Spinner />
         </SpinnerContainer>
       )}
-    </>
+      {totalPages > 1 && status === 'fulfilled' && (
+        <ButtonContainer>
+          <Button text='Load more' clickHandler={() => moreResults()} />
+        </ButtonContainer>
+      )}
+    </Container>
   );
 };
 
 export default ResultsBody;
 
-const SpinnerContainer = styled.div`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SpinnerContainer = styled.div<{ loadMoreData: boolean }>`
   width: 100%;
-  height: calc(100% - 64px);
+  height: ${({ loadMoreData }) =>
+    loadMoreData === true ? '150px' : 'calc(100% - 64px)'};
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -89,5 +94,9 @@ const ResultContainer = styled.div`
 
 const ButtonContainer = styled.div`
   width: 100%;
-  height: 200px;
+  height: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
