@@ -124,7 +124,6 @@ export default film;
 const Container = styled.div`
   width: 100%;
   min-height: 100%;
-  overflow-y: scroll;
   background: ${({ theme }) => theme.colors.primary};
   padding: 3vh 2vw;
   margin: auto;

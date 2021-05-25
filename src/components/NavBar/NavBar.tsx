@@ -105,6 +105,7 @@ const NavBarContainer = styled.nav`
 `;
 
 const HamburgerButton = styled.button<{ isOpen: boolean }>`
+  height: 100%;
   border: none;
   background: none;
   display: inline-block;

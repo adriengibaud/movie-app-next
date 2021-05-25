@@ -32,6 +32,7 @@ const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: ${({ theme }) => theme.colors.primary};
 `;
 
 const Body = styled.div`
