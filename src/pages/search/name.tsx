@@ -50,6 +50,7 @@ const name = () => {
         />
       </Head>
       <ResultsBody
+        title={`Results for your search`}
         text={true}
         size='big'
         status={status}
