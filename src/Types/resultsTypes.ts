@@ -1,4 +1,5 @@
 export interface Results {
+  title: string;
   size: 'small' | 'medium' | 'big';
   status: string;
   text: boolean;

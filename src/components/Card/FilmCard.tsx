@@ -54,7 +54,7 @@ const CardContainer = styled.div<{ size: string; text: boolean }>`
   margin: ${({ size }) =>
     (size === 'small' && '7px') ||
     (size === 'medium' && '10px') ||
-    (size === 'big' && '15px')};
+    (size === 'big' && '10px 5px')};
 `;
 
 const ImageContainer = styled.div<{ size: string; text: boolean }>`

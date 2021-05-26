@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth, provider } from '../../firebase';
 import {
+  fetchUserList,
   selectUserEmail,
   selectUserName,
   setActiveUser,
@@ -26,6 +27,7 @@ const Auth = () => {
     if (userName === null) {
       auth.onAuthStateChanged((user) => {
         if (user !== null && userEmail === null) {
+          dispatch(fetchUserList(user.uid));
           dispatch(
             setActiveUser({
               userName: user.displayName,

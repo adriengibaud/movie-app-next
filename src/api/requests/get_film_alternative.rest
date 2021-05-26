@@ -1,0 +1,2 @@
+GET http://localhost:3000/api/get/zeAFQMlPBHaDOFIBAVkfTerT2Y33
+Content-Type: application/json

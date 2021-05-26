@@ -65,6 +65,7 @@ const genre = () => {
         />
       </Head>
       <ResultsBody
+        title={`Results for: ${selectedGenre}`}
         text={true}
         size='big'
         status={status}

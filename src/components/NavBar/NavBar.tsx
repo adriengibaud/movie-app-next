@@ -12,6 +12,7 @@ import {
   selectUserName,
   setActiveUser,
   setUserLogoutState,
+  fetchUserList,
 } from '../../reducers/userSlice';
 
 const NavBar = ({
@@ -40,6 +41,7 @@ const NavBar = ({
     if (userName === null) {
       auth.onAuthStateChanged((user) => {
         if (user !== null && userEmail === null) {
+          dispatch(fetchUserList(user.uid));
           dispatch(
             setActiveUser({
               userName: user.displayName,
@@ -56,7 +58,7 @@ const NavBar = ({
   const signedInBody = () => {
     return (
       <>
-        <AvatarContainer>
+        <AvatarContainer onClick={() => router.push('/userProfile')}>
           <UserAvatar image={userImage} size='small' />
         </AvatarContainer>
       </>
@@ -98,6 +100,7 @@ const NavBarContainer = styled.nav`
   flex-direction: row;
   align-items: center;
   box-shadow: ${({ theme }) => theme.shadow.fourDp};
+  cursor: pointer;
   h1 {
     text-transform: uppercase;
     font: 40px Oswald, sans-serif;

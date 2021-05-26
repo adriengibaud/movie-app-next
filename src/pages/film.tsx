@@ -12,6 +12,12 @@ import {
   fetchFilmById,
   selectActiveFilm,
 } from '../reducers/filmsSlice';
+import {
+  addToList,
+  deleteFilmUserList,
+  selectUserId,
+  selectUserList,
+} from '../reducers/userSlice';
 import Spinner from '../components/Spinner';
 import FilmCard from '../components/Card/FilmCard';
 import Button from '../components/Button';
@@ -21,6 +27,8 @@ const film = () => {
   const status = useSelector(statusFilms);
   const films = useSelector(selectFilms);
   const activeFilm = useSelector(selectActiveFilm);
+  const userId = useSelector(selectUserId);
+  const userList = useSelector(selectUserList);
   const router = useRouter();
   const { id } = router.query;
 
@@ -28,6 +36,21 @@ const film = () => {
     console.log(router.query);
     if (id) dispatch(fetchFilmById(id));
   }, [id]);
+
+  const addToListHandler = () => {
+    dispatch(
+      addToList({
+        userId: userId,
+        filmName: activeFilm.original_title,
+        filmId: activeFilm.id,
+        filmImage: activeFilm.poster_path,
+      })
+    );
+  };
+
+  const removeToListHandler = () => {
+    dispatch(deleteFilmUserList({ userId, filmId: activeFilm.id }));
+  };
 
   const body = () => {
     if (status === 'fulfilled' && activeFilm.original_title) {
@@ -62,10 +85,17 @@ const film = () => {
               </ActorsNames>
 
               <AddToListContainer>
-                <Button
-                  text='+ Add to list'
-                  clickHandler={() => console.log('yo')}
-                />
+                {userList.some((e) => e.filmId == activeFilm.id) ? (
+                  <Button
+                    text='- Remove from list'
+                    clickHandler={() => removeToListHandler()}
+                  />
+                ) : (
+                  <Button
+                    text='+ Add to list'
+                    clickHandler={() => addToListHandler()}
+                  />
+                )}
               </AddToListContainer>
             </Infos>
           </Header>
@@ -134,8 +164,8 @@ const Container = styled.div`
 `;
 
 const SpinnerContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: auto;
   display: flex;
   flex-direction: row;
@@ -150,6 +180,7 @@ const Header = styled.header`
   max-height: 450px;
   @media screen and (max-width: 750px) {
     flex-direction: column;
+    min-height: 700px;
     max-height: 1000px;
     align-items: center;
   }
@@ -255,6 +286,7 @@ const Recommendations = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   flex-shrink: 0;
+  margin-bottom: 60px;
   @media screen and (max-width: 1050px) {
     flex-wrap: nowrap;
   }

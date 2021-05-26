@@ -8,7 +8,7 @@ const Spinner = () => {
   return (
     <Loader
       type='Oval'
-      color={theme === 'dark' ? '#66fcf1' : 'red'}
+      color={theme === 'dark' ? '#66fcf1' : '#00838f'}
       height={80}
       width={80}
       timeout={0} //3 secs

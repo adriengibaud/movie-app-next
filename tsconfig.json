@@ -14,6 +14,12 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "firebase.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "firebase.ts",
+    "src/pages/api/get/[userId].ts"
+  ],
   "exclude": ["node_modules"]
 }

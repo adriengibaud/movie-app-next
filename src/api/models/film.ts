@@ -7,13 +7,18 @@ const film = new Schema({
     type: String,
     required: true,
   },
-  filmInfo: [
-    {
-      id: String,
-      poster: String,
-      title: String,
-    },
-  ],
+  filmName: {
+    type: String,
+    required: true,
+  },
+  filmId: {
+    type: String,
+    required: true,
+  },
+  filmImage: {
+    type: String,
+    required: true,
+  },
 });
 
 const Film = mongoose.models.Film || mongoose.model('Film', film);

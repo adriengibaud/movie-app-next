@@ -1,15 +1,19 @@
 import connectDB from '../../api/middleware/mongodb';
 import Film from '../../api/models/film';
 import film from '../film';
+import { ListData } from '../../Types/userTypes';
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
-    const { userId, filmInfo } = req.body;
-    if (userId && filmInfo) {
+    const { userId, filmId, filmImage, filmName } = req.body;
+    console.log(userId, filmId, filmName, filmImage);
+    if (userId && filmName && filmId && filmImage) {
       try {
         const film = new Film({
           userId,
-          filmInfo,
+          filmName,
+          filmId,
+          filmImage,
         });
         const filmCreated = await film.save();
         console.log(filmCreated);
@@ -21,17 +25,17 @@ const handler = async (req, res) => {
       res.status(422).send('data_incomplete');
     }
   }
-  if (req.method === 'GET') {
-    const { userId } = req.body;
+  if (req.method === 'DELETE') {
+    const { userId, filmId } = req.body;
+    console.log(userId, filmId);
     try {
-      const result = await Film.find({ userId });
-      console.log(result);
-      return res.status(200).send(result);
+      const film = await Film.deleteOne({ userId, filmId });
+      return res.status(200).send({ film, filmId });
     } catch (error) {
-      return res.stauts(500).send(error.message);
+      return res.status(500).send(error.message);
     }
   } else {
-    res.status(422).send('req_method_not_supported');
+    res.status(422).send('data_incomplete');
   }
 };
 

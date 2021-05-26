@@ -1,0 +1,7 @@
+DELETE http://localhost:3000/api/film
+Content-Type: application/json
+
+{
+  "userId": "adrien",
+  "filmId": "12345"
+}

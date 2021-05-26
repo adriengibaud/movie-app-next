@@ -2,10 +2,8 @@ POST http://localhost:3000/api/film
 Content-Type: application/json
 
 {
-  "userId": "blablabla43",
-  "filmInfo": {
-    "id": "453",
-    "poster": "blablabla.com",
-    "title": "oss de mes fesses"
-  }
+  "userId": "adrien",
+  "filmName": "oss",
+  "filmId": "12345",
+  "filmImage": "blabla.com"
 }

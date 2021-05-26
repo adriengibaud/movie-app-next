@@ -13,6 +13,7 @@ const ResultsBody = ({
   data,
   type,
   status,
+  title,
 }: Results) => {
   const router = useRouter();
 
@@ -28,6 +29,7 @@ const ResultsBody = ({
     if (data.length > 0) {
       return (
         <>
+          <Title>{title}</Title>
           {data.map((element) => (
             <FilmCard
               text={text}
@@ -72,10 +74,19 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const Title = styled.h2`
+  color: ${({ theme }) => theme.colors.mediumText};
+  font: 2rem Roboto, sans-serif;
+  text-align: center;
+  display: inline-block;
+  width: 100vw;
+  margin: 30px 0;
+`;
+
 const SpinnerContainer = styled.div<{ loadMoreData: boolean }>`
   width: 100%;
   height: ${({ loadMoreData }) =>
-    loadMoreData === true ? '150px' : 'calc(100% - 64px)'};
+    loadMoreData === true ? '150px' : 'calc(100vh - 64px)'};
   margin: auto;
   display: flex;
   flex-direction: row;

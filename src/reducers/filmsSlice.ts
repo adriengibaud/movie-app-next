@@ -51,18 +51,18 @@ export const filmsSlice = createSlice({
       } else {
         state.films = action.payload.results;
       }
-    }),
-      builder.addCase(fetchFilmByName.pending, (state, action) => {
-        if (action.meta.arg.page === 1) state.films = [];
-        state.status = 'pending';
-      }),
-      builder.addCase(fetchFilmById.fulfilled, (state, action) => {
-        state.activeFilm = action.payload;
-        state.status = 'fulfilled';
-      }),
-      builder.addCase(fetchFilmById.pending, (state, action) => {
-        state.status = 'pending';
-      });
+    });
+    builder.addCase(fetchFilmByName.pending, (state, action) => {
+      if (action.meta.arg.page === 1) state.films = [];
+      state.status = 'pending';
+    });
+    builder.addCase(fetchFilmById.fulfilled, (state, action) => {
+      state.activeFilm = action.payload;
+      state.status = 'fulfilled';
+    });
+    builder.addCase(fetchFilmById.pending, (state, action) => {
+      state.status = 'pending';
+    });
     builder.addCase(fetchFilmByGenre.fulfilled, (state, action) => {
       if (action.payload.page >= 2) {
         state.films = [...state.films, ...action.payload.results];
@@ -72,11 +72,11 @@ export const filmsSlice = createSlice({
       state.page = action.payload.page;
       state.total_pages = action.payload.total_pages;
       state.status = 'fulfilled';
-    }),
-      builder.addCase(fetchFilmByGenre.pending, (state, action) => {
-        if (action.meta.arg.page === 1) state.films = [];
-        state.status = 'pending';
-      });
+    });
+    builder.addCase(fetchFilmByGenre.pending, (state, action) => {
+      if (action.meta.arg.page === 1) state.films = [];
+      state.status = 'pending';
+    });
   },
 });
 

@@ -2,5 +2,5 @@ GET http://localhost:3000/api/film
 Content-Type: application/json
 
 {
-  "userId": "blablabla43"
+  "userId": "zeAFQMlPBHaDOFIBAVkfTerT2Y33"
 }
