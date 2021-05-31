@@ -17,6 +17,7 @@ import {
   deleteFilmUserList,
   selectUserId,
   selectUserList,
+  updateWatchStatus,
 } from '../reducers/userSlice';
 import Spinner from '../components/Spinner';
 import FilmCard from '../components/Card/FilmCard';
@@ -37,19 +38,58 @@ const film = () => {
     if (id) dispatch(fetchFilmById(id));
   }, [id]);
 
-  const addToListHandler = () => {
+  const addToListHandler = (watched = false) => {
     dispatch(
       addToList({
         userId: userId,
         filmName: activeFilm.original_title,
-        filmId: activeFilm.id,
+        filmId: activeFilm.id.toString(),
         filmImage: activeFilm.poster_path,
+        watched,
+      })
+    );
+  };
+
+  const updateWatch = (watched) => {
+    dispatch(
+      updateWatchStatus({
+        userId: userId,
+        filmName: activeFilm.original_title,
+        filmId: activeFilm.id.toString(),
+        filmImage: activeFilm.poster_path,
+        watched,
       })
     );
   };
 
   const removeToListHandler = () => {
     dispatch(deleteFilmUserList({ userId, filmId: activeFilm.id }));
+  };
+
+  const WatchListBody = () => {
+    const test = userList.find((e) => e.filmId == activeFilm.id);
+    console.log('je test', test);
+    if (test !== undefined) {
+      if (test.watched == true) {
+        return (
+          <Button text='Watched' clickHandler={() => updateWatch(false)} />
+        );
+      } else {
+        return (
+          <Button
+            text='+ Mark as watched'
+            clickHandler={() => updateWatch(true)}
+          />
+        );
+      }
+    } else {
+      return (
+        <Button
+          text='+ Mark as watched'
+          clickHandler={() => addToListHandler(true)}
+        />
+      );
+    }
   };
 
   const body = () => {
@@ -84,7 +124,7 @@ const film = () => {
                 ))}
               </ActorsNames>
 
-              <AddToListContainer>
+              <ButtonContainer>
                 {userList.some((e) => e.filmId == activeFilm.id) ? (
                   <Button
                     text='- Remove from list'
@@ -96,7 +136,8 @@ const film = () => {
                     clickHandler={() => addToListHandler()}
                   />
                 )}
-              </AddToListContainer>
+                {WatchListBody()}
+              </ButtonContainer>
             </Infos>
           </Header>
           <RecommendationsTitle>Recommandations</RecommendationsTitle>
@@ -253,10 +294,16 @@ const ActorsNames = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
 
-const AddToListContainer = styled.div`
-  height: 60px;
+const ButtonContainer = styled.div`
+  min-height: 50px;
+  max-height: 120px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const RecommendationsContainer = styled.div`

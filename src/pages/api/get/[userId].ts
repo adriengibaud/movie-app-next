@@ -14,6 +14,7 @@ const handler = async (req, res) => {
           filmName: e.filmName,
           filmId: e.filmId,
           filmImage: e.filmImage,
+          watched: e.watched,
         };
       });
       const finalObject = { userId: result[0].userId, userList: filmResults };

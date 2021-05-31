@@ -6,7 +6,7 @@ const addToList = async (data) => {
   console.log(data);
   const url = `${baseUrl}film`;
   const response = await axios.post(url, data);
-  return response.data;
+  return response;
 };
 
 const getUserList = async (userId) => {

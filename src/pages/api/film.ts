@@ -6,17 +6,24 @@ const handler = async (req, res) => {
   if (req.method === 'POST') {
     const { userId, filmId, filmImage, filmName, watched } = req.body;
     console.log(userId, filmId, filmName, filmImage, watched);
-    if (userId && filmName && filmId && filmImage && watched) {
+    if (userId && filmName && filmId && filmImage) {
+      console.log('le if est passé');
       try {
-        const film = new Film({
-          userId,
-          filmName,
-          filmId,
-          filmImage,
+        const query = { userId, filmId, filmName, filmImage };
+        const update = {
           watched,
-        });
-        const filmCreated = await film.save();
-        return res.status(200).send(filmCreated);
+        };
+        const options = { upsert: true, new: true };
+        const result = await Film.findOneAndUpdate(
+          query,
+          update,
+          options,
+          function (err, res) {
+            if (err) return res.status(500).send(err.message);
+            return res;
+          }
+        );
+        return res.status(200).send(result);
       } catch (error) {
         return res.status(500).send(error.message);
       }

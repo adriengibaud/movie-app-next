@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -12,6 +13,8 @@ import {
 import FilmCard from '../components/Card/FilmCard';
 
 const userProfile = () => {
+  const [filter, setFilter] = useState('all');
+
   const router = useRouter();
   const userName = useSelector(selectUserName);
   const userEmail = useSelector(selectUserEmail);
@@ -20,6 +23,13 @@ const userProfile = () => {
 
   const clickHandler = (id) => {
     router.push(`/film?id=${id}`);
+  };
+
+  const numberWatched = () => {
+    if (userList.length > 0) {
+      const watchedArray = userList.filter((e) => e.watched == true);
+      return watchedArray.length;
+    }
   };
 
   return (
@@ -43,7 +53,12 @@ const userProfile = () => {
             <Email>{userEmail}</Email>
           </UserInfos>
         </Header>
-
+        <StatContainer>
+          <FilmNumber>
+            Movies in your list : {userList && userList.length}
+          </FilmNumber>
+          <WatchedNumber>Movies watched : {numberWatched()}</WatchedNumber>
+        </StatContainer>
         <ListContainer>
           <ListTitle>My list</ListTitle>
           <ListResults>
@@ -77,8 +92,7 @@ const Container = styled.div`
   font: 1rem Roboto, sans-serif;
   width: 100vw;
   padding: 5vh 10vw;
-  height: 600px;
-  margin: 30px auto 0 auto;
+  margin: 0 auto 0 auto;
 `;
 
 const Header = styled.header`
@@ -92,6 +106,17 @@ const AvatarContainer = styled.div``;
 const UserInfos = styled.div`
   margin-left: 15px;
 `;
+
+const StatContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+`;
+
+const FilmNumber = styled.p``;
+
+const WatchedNumber = styled.p``;
 
 const Name = styled.h2``;
 

@@ -16,7 +16,15 @@ export const addToList = createAsyncThunk(
   'user/addToList',
   async (data: ListData, thunkAPI) => {
     const response = await api.addToList(data);
-    return response;
+    return response.data;
+  }
+);
+
+export const updateWatchStatus = createAsyncThunk(
+  'user/updateWatchStatus',
+  async (data: ListData, thunkAPI) => {
+    const response = await api.addToList(data);
+    if (response.status === 200) return response.data;
   }
 );
 
@@ -79,8 +87,22 @@ const userSlice = createSlice({
         filmName: action.payload.filmName,
         filmId: action.payload.filmId,
         filmImage: action.payload.filmImage,
+        watched: action.payload.watched,
       };
+      console.log(filmInfo);
       state.userList = [...state.userList, filmInfo];
+    });
+    builder.addCase(updateWatchStatus.fulfilled, (state, action) => {
+      const updatedFilm = {
+        filmName: action.payload.filmName,
+        filmId: action.payload.filmId,
+        filmImage: action.payload.filmImage,
+        watched: action.payload.watched,
+      };
+      const newState = state.userList.map((e) =>
+        e.filmId === updatedFilm.filmId ? updatedFilm : e
+      );
+      state.userList = newState;
     });
   },
 });

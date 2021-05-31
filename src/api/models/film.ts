@@ -19,10 +19,7 @@ const film = new Schema({
     type: String,
     required: true,
   },
-  watched: {
-    type: Boolean,
-    required: true,
-  },
+  watched: Boolean,
 });
 
 const Film = mongoose.models.Film || mongoose.model('Film', film);
