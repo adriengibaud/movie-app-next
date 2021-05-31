@@ -15,6 +15,10 @@ const AvatarContainer = styled.div<{ size: string }>`
     (size === 'small' && '50px') || (size === 'medium' && '80px')};
   height: ${({ size }) =>
     (size === 'small' && '50px') || (size === 'medium' && '80px')};
+  max-width: ${({ size }) =>
+    (size === 'small' && '50px') || (size === 'medium' && '80px')};
+  max-height: ${({ size }) =>
+    (size === 'small' && '50px') || (size === 'medium' && '80px')};
   border-radius: 50%;
   background: ${({ theme }) => theme.colors.secondary};
   img {

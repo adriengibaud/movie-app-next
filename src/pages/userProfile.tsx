@@ -34,30 +34,36 @@ const userProfile = () => {
       </Head>
       <Container>
         <Header>
-          <UserAvatar size='medium' image={userImage} />
+          <AvatarContainer>
+            <UserAvatar size='small' image={userImage} />
+          </AvatarContainer>
+
           <UserInfos>
             <Name>{userName}</Name>
             <Email>{userEmail}</Email>
           </UserInfos>
         </Header>
-        <ListTitle>My list</ListTitle>
+
         <ListContainer>
-          {userList.map((e) => {
-            return (
-              <FilmCard
-                size='big'
-                image={
-                  e.filmImage === null
-                    ? null
-                    : `https://image.tmdb.org/t/p/w200/${e.filmImage}`
-                }
-                text={true}
-                title={e.filmName}
-                id={e.filmId}
-                clickHandler={() => clickHandler(e.filmId)}
-              />
-            );
-          })}
+          <ListTitle>My list</ListTitle>
+          <ListResults>
+            {userList.map((e) => {
+              return (
+                <FilmCard
+                  size='big'
+                  image={
+                    e.filmImage === null
+                      ? null
+                      : `https://image.tmdb.org/t/p/w200/${e.filmImage}`
+                  }
+                  text={true}
+                  title={e.filmName}
+                  id={e.filmId}
+                  clickHandler={() => clickHandler(e.filmId)}
+                />
+              );
+            })}
+          </ListResults>
         </ListContainer>
       </Container>
     </>
@@ -81,8 +87,10 @@ const Header = styled.header`
   align-items: center;
 `;
 
+const AvatarContainer = styled.div``;
+
 const UserInfos = styled.div`
-  margin-left: 35px;
+  margin-left: 15px;
 `;
 
 const Name = styled.h2``;
@@ -90,6 +98,18 @@ const Name = styled.h2``;
 const Email = styled.h3``;
 
 const ListContainer = styled.section`
+  margin-top: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ListTitle = styled.h3``;
+
+const ListResults = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -97,5 +117,3 @@ const ListContainer = styled.section`
   justify-content: space-between;
   align-items: center;
 `;
-
-const ListTitle = styled.h3``;

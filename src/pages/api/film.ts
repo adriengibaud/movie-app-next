@@ -1,7 +1,5 @@
 import connectDB from '../../api/middleware/mongodb';
 import Film from '../../api/models/film';
-import film from '../film';
-import { ListData } from '../../Types/userTypes';
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
