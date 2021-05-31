@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/film
+PUT http://localhost:3000/api/film
 Content-Type: application/json
 
 {
@@ -6,5 +6,5 @@ Content-Type: application/json
   "filmName": "oss",
   "filmId": "12345",
   "filmImage": "blabla.com",
-  "watched" : true
+  "watched" : false
 }

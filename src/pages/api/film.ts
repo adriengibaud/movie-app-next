@@ -2,25 +2,26 @@ import connectDB from '../../api/middleware/mongodb';
 import Film from '../../api/models/film';
 
 const handler = async (req, res) => {
+  console.log(req.method);
   if (req.method === 'POST') {
-    const { userId, filmId, filmImage, filmName } = req.body;
-    console.log(userId, filmId, filmName, filmImage);
-    if (userId && filmName && filmId && filmImage) {
+    const { userId, filmId, filmImage, filmName, watched } = req.body;
+    console.log(userId, filmId, filmName, filmImage, watched);
+    if (userId && filmName && filmId && filmImage && watched) {
       try {
         const film = new Film({
           userId,
           filmName,
           filmId,
           filmImage,
+          watched,
         });
         const filmCreated = await film.save();
-        console.log(filmCreated);
         return res.status(200).send(filmCreated);
       } catch (error) {
         return res.status(500).send(error.message);
       }
     } else {
-      res.status(422).send('data_incomplete');
+      return res.status(422).send('data_incomplete');
     }
   }
   if (req.method === 'DELETE') {
