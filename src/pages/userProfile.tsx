@@ -36,18 +36,9 @@ const userProfile = () => {
     } else return 0;
   };
 
-  return (
-    <>
-      <Head>
-        <title>Movio your movie companion | Home</title>
-        <link rel='preconnect' href='https://fonts.gstatic.com' />
-        <link
-          href='https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap'
-          rel='stylesheet'
-        />
-      </Head>
-
-      <Container>
+  const bodyWithResult = () => {
+    return (
+      <>
         <Header>
           <AvatarContainer>
             <UserAvatar size='small' image={userImage} />
@@ -58,14 +49,18 @@ const userProfile = () => {
             <Email>{userEmail}</Email>
           </UserInfos>
         </Header>
-        <GenreChart />
-        <GenreChart2 />
+        <Separator />
+        <Chartcontainer>
+          <GenreChart2 />
+        </Chartcontainer>
+        <Separator />
         <StatContainer>
           <FilmNumber>
             Movies in your list : {userList ? userList.length : 0}
           </FilmNumber>
           <WatchedNumber>Movies watched : {numberWatched()}</WatchedNumber>
         </StatContainer>
+        <Separator />
         <ListContainer>
           <ListTitle>My list</ListTitle>
           <ListResults>
@@ -81,12 +76,56 @@ const userProfile = () => {
                   text={true}
                   title={e.filmName}
                   id={e.filmId}
+                  key={e.filmId}
                   clickHandler={() => clickHandler(e.filmId)}
                 />
               );
             })}
           </ListResults>
         </ListContainer>
+      </>
+    );
+  };
+
+  const bodyWithoutResult = () => {
+    if (!userEmail) {
+      return <h1>Please login</h1>;
+    } else {
+      return (
+        <>
+          <Header>
+            <AvatarContainer>
+              <UserAvatar size='small' image={userImage} />
+            </AvatarContainer>
+
+            <UserInfos>
+              <Name>{userName}</Name>
+              <Email>{userEmail}</Email>
+            </UserInfos>
+          </Header>
+          <NoContentContainer>
+            <NoContentText>
+              Start by adding some movie to your list and come back here !
+            </NoContentText>
+          </NoContentContainer>
+        </>
+      );
+    }
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Movio your movie companion | Home</title>
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap'
+          rel='stylesheet'
+        />
+      </Head>
+
+      <Container>
+        {userList.length > 0 ? bodyWithResult() : bodyWithoutResult()}
       </Container>
     </>
   );
@@ -97,9 +136,17 @@ export default userProfile;
 const Container = styled.div`
   color: ${({ theme }) => theme.colors.highText};
   font: 1rem Roboto, sans-serif;
+  padding: 5vh 2vw;
   width: 100vw;
-  padding: 5vh 10vw;
   margin: 0 auto 0 auto;
+`;
+
+const Separator = styled.div`
+  width: 100%;
+  height: 3px;
+  background: ${({ theme }) => theme.colors.mediumText};
+  margin: 30px 0;
+  opacity: 0.5;
 `;
 
 const Header = styled.header`
@@ -114,11 +161,16 @@ const UserInfos = styled.div`
   margin-left: 15px;
 `;
 
+const Chartcontainer = styled.section`
+  margin: 0 0 25px 0;
+`;
+
 const StatContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 25px;
+  font-size: 1.5rem;
 `;
 
 const FilmNumber = styled.p``;
@@ -148,4 +200,19 @@ const ListResults = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 400px) {
+    justify-content: center;
+  }
 `;
+
+const NoContentContainer = styled.section`
+  width: 80%;
+  margin: auto;
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoContentText = styled.h1``;

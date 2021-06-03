@@ -14,6 +14,7 @@ import {
   setUserLogoutState,
   fetchUserList,
 } from '../../reducers/userSlice';
+import { fetchGenre, selectGenre } from '../../reducers/genreSlice';
 
 const NavBar = ({
   closeMenu,
@@ -28,6 +29,7 @@ const NavBar = ({
   const userEmail = useSelector(selectUserEmail);
   const userName = useSelector(selectUserName);
   const userImage = useSelector(selectUserImage);
+  const genre = useSelector(selectGenre);
 
   const handleSignIn = () => {
     auth.signInWithPopup(provider);
@@ -54,6 +56,12 @@ const NavBar = ({
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (genre.length === 0) {
+      dispatch(fetchGenre());
+    }
+  }, [genre]);
 
   const signedInBody = () => {
     return (

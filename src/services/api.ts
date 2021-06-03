@@ -3,14 +3,12 @@ import axios from 'axios';
 const baseUrl = '/api/';
 
 const addToList = async (data) => {
-  console.log(data);
   const url = `${baseUrl}film`;
   const response = await axios.post(url, data);
   return response;
 };
 
 const getUserList = async (userId) => {
-  console.log(userId);
   const url = `${baseUrl}get/${userId}`;
   const response = await axios.get(url);
 
@@ -25,7 +23,6 @@ const deleteFilmUserList = async (data) => {
   const status = response.status;
   const filmId = response.data.filmId;
   const finalObject = { status, filmId };
-  console.log(finalObject);
   return finalObject;
 };
 

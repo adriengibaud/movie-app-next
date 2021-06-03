@@ -32,7 +32,6 @@ export const fetchUserList = createAsyncThunk(
   'user/getList',
   async (userId: string, thunkAPI) => {
     const response = await api.getUserList(userId);
-    console.log(response);
     return response;
   }
 );

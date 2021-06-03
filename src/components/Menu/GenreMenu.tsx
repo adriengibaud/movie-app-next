@@ -4,7 +4,6 @@ import { store } from '../../app/store';
 import { Router, useRouter } from 'next/router';
 import styled from 'styled-components';
 import {
-  fetchGenre,
   selectGenre,
   setGenreActive,
   setGenreInactive,
@@ -20,12 +19,6 @@ const GenreMenu = () => {
   const genre = useSelector(selectGenre);
 
   const status = useSelector(statusFilms);
-
-  useEffect(() => {
-    if (genre.length === 0) {
-      dispatch(fetchGenre());
-    }
-  }, [genre]);
 
   const submit = (e) => {
     dispatch(setGenreActive(e.target.value));

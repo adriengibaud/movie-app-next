@@ -50,7 +50,7 @@ const name = () => {
         />
       </Head>
       <ResultsBody
-        title={`Results for your search`}
+        title={`Results for ${title && title.toString().replace(/\+/g, ' ')}`}
         text={true}
         size='big'
         status={status}

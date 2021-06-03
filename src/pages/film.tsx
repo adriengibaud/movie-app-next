@@ -294,12 +294,17 @@ const ActorsNames = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  min-height: 50px;
-  max-height: 120px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  @media screen and (max-width: 440px) {
+    min-height: 100px;
+    max-height: 100px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const RecommendationsContainer = styled.div`
