@@ -123,7 +123,6 @@ const userProfile = () => {
           rel='stylesheet'
         />
       </Head>
-
       <Container>
         {userList.length > 0 ? bodyWithResult() : bodyWithoutResult()}
       </Container>
