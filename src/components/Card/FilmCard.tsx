@@ -1,10 +1,30 @@
 import styled from 'styled-components';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
 import { Card } from '../../Types/cardTypes';
+import { FiCheckCircle } from 'react-icons/fi';
+import { IoCheckmarkCircle, IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
+import { selectUserList } from '../../reducers/userSlice';
 
-const FilmCard = ({ image, size, title, text, clickHandler }: Card) => {
+const FilmCard = ({ image, size, title, text, clickHandler, id }: Card) => {
+  const userList = useSelector(selectUserList);
+
+  const viewChecker = (id) => {
+    if (userList.length > 0) {
+      const selectedFilm = userList.find((e) => e.filmId === id);
+      if (selectedFilm !== undefined) {
+        return selectedFilm.watched ? (
+          <IoCheckmarkDoneCircleSharp />
+        ) : (
+          <IoCheckmarkCircle />
+        );
+      }
+    }
+  };
+
   return (
     <CardContainer text={text} size={size} onClick={() => clickHandler()}>
+      <ViewedCheck size={size}>{viewChecker(id)}</ViewedCheck>
       <ImageContainer size={size} text={text}>
         {image === null ? (
           <h3>No Image</h3>
@@ -91,4 +111,28 @@ const Title = styled.h4<{ text: boolean }>`
   align-items: center;
   font: 1rem Roboto, sans-serif;
   color: ${({ theme }) => theme.colors.highText};
+`;
+
+const ViewedCheck = styled.div<{ size: string }>`
+  position: relative;
+  margin-top: ${({ size }) =>
+    (size === 'small' && '100px') ||
+    (size === 'medium' && '-30px') ||
+    (size === 'big' && '-30px')};
+  top: 35px;
+  left: ${({ size }) =>
+    (size === 'small' && '100px') ||
+    (size === 'medium' && '103px') ||
+    (size === 'big' && '145px')};
+  width: ${({ size }) =>
+    (size === 'small' && '100px') ||
+    (size === 'medium' && '30px') ||
+    (size === 'big' && '30px')};
+  height: ${({ size }) =>
+    (size === 'small' && '100px') ||
+    (size === 'medium' && '30px') ||
+    (size === 'big' && '30px')};
+  z-index: 10;
+  font-size: 25px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;

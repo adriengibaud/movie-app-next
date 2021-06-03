@@ -38,28 +38,24 @@ const film = () => {
     if (id) dispatch(fetchFilmById(id));
   }, [id]);
 
+  const filmObject = (watched) => {
+    return {
+      userId: userId,
+      filmName: activeFilm.original_title,
+      filmId: activeFilm.id,
+      filmImage: activeFilm.poster_path,
+      watched,
+      genres: activeFilm.genres.map((e) => e.id),
+    };
+  };
+
   const addToListHandler = (watched = false) => {
-    dispatch(
-      addToList({
-        userId: userId,
-        filmName: activeFilm.original_title,
-        filmId: activeFilm.id.toString(),
-        filmImage: activeFilm.poster_path,
-        watched,
-      })
-    );
+    console.log(filmObject(watched));
+    dispatch(addToList(filmObject(watched)));
   };
 
   const updateWatch = (watched) => {
-    dispatch(
-      updateWatchStatus({
-        userId: userId,
-        filmName: activeFilm.original_title,
-        filmId: activeFilm.id.toString(),
-        filmImage: activeFilm.poster_path,
-        watched,
-      })
-    );
+    dispatch(updateWatchStatus(filmObject(watched)));
   };
 
   const removeToListHandler = () => {

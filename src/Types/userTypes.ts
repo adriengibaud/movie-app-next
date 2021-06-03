@@ -4,4 +4,5 @@ export interface ListData {
   filmId: string;
   filmImage: string;
   watched: boolean;
+  genres: number[];
 }

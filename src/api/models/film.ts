@@ -12,7 +12,7 @@ const film = new Schema({
     required: true,
   },
   filmId: {
-    type: String,
+    type: Number,
     required: true,
   },
   filmImage: {
@@ -20,6 +20,7 @@ const film = new Schema({
     required: true,
   },
   watched: Boolean,
+  genres: [Number],
 });
 
 const Film = mongoose.models.Film || mongoose.model('Film', film);

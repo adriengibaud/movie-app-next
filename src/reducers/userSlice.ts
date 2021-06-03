@@ -88,6 +88,7 @@ const userSlice = createSlice({
         filmId: action.payload.filmId,
         filmImage: action.payload.filmImage,
         watched: action.payload.watched,
+        genres: action.payload.genres,
       };
       console.log(filmInfo);
       state.userList = [...state.userList, filmInfo];

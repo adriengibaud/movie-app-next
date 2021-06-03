@@ -6,5 +6,6 @@ Content-Type: application/json
   "filmName": "oss",
   "filmId": "1450",
   "filmImage": "142.com",
-  "watched" : "false"
+  "watched" : "false",
+  "genres": ["423", "4532"]
 }

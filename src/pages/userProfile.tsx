@@ -11,6 +11,9 @@ import {
   selectUserName,
 } from '../reducers/userSlice';
 import FilmCard from '../components/Card/FilmCard';
+import { selectGenre } from '../reducers/genreSlice';
+import GenreChart from '../components/GenreChart';
+import GenreChart2 from '../components/GenreChart2';
 
 const userProfile = () => {
   const [filter, setFilter] = useState('all');
@@ -20,6 +23,7 @@ const userProfile = () => {
   const userEmail = useSelector(selectUserEmail);
   const userImage = useSelector(selectUserImage);
   const userList = useSelector(selectUserList);
+  const genresList = useSelector(selectGenre);
 
   const clickHandler = (id) => {
     router.push(`/film?id=${id}`);
@@ -29,7 +33,7 @@ const userProfile = () => {
     if (userList.length > 0) {
       const watchedArray = userList.filter((e) => e.watched == true);
       return watchedArray.length;
-    }
+    } else return 0;
   };
 
   return (
@@ -42,6 +46,7 @@ const userProfile = () => {
           rel='stylesheet'
         />
       </Head>
+
       <Container>
         <Header>
           <AvatarContainer>
@@ -53,9 +58,11 @@ const userProfile = () => {
             <Email>{userEmail}</Email>
           </UserInfos>
         </Header>
+        <GenreChart />
+        <GenreChart2 />
         <StatContainer>
           <FilmNumber>
-            Movies in your list : {userList && userList.length}
+            Movies in your list : {userList ? userList.length : 0}
           </FilmNumber>
           <WatchedNumber>Movies watched : {numberWatched()}</WatchedNumber>
         </StatContainer>

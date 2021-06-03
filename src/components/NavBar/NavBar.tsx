@@ -100,10 +100,11 @@ const NavBarContainer = styled.nav`
   flex-direction: row;
   align-items: center;
   box-shadow: ${({ theme }) => theme.shadow.fourDp};
-  cursor: pointer;
+
   h1 {
     text-transform: uppercase;
     font: 40px Oswald, sans-serif;
+    cursor: pointer;
   }
 `;
 
@@ -113,25 +114,33 @@ const HamburgerButton = styled.button<{ isOpen: boolean }>`
   background: none;
   display: inline-block;
   cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
   .bar1,
   .bar2,
   .bar3 {
-    width: 35px;
-    height: 5px;
+    width: 2rem;
+    height: 0.25rem;
     background-color: ${({ theme }) => theme.colors.secondary};
     margin: 6px 20px;
     transition: 0.4s;
+    border-radius: 10px;
+    transform-origin: 1.5px;
   }
+
   .bar1 {
-    transform: ${({ isOpen }) =>
-      isOpen ? 'rotate(-45deg) translate(-8px, 6px)' : 'none'};
+    transform: ${({ isOpen }) => (isOpen ? 'rotate(45deg)' : 'none')};
   }
+
   .bar2 {
     opacity: ${({ isOpen }) => (isOpen ? '0' : '1')};
   }
+
   .bar3 {
-    transform: ${({ isOpen }) =>
-      isOpen ? 'rotate(45deg) translate(-8px, -8px)' : 'none'};
+    transform: ${({ isOpen }) => (isOpen ? 'rotate(-45deg)' : 'none')};
   }
 `;
 

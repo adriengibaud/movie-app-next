@@ -4,12 +4,13 @@ import Film from '../../api/models/film';
 const handler = async (req, res) => {
   console.log(req.method);
   if (req.method === 'POST') {
-    const { userId, filmId, filmImage, filmName, watched } = req.body;
-    console.log(userId, filmId, filmName, filmImage, watched);
-    if (userId && filmName && filmId && filmImage) {
-      console.log('le if est passé');
+    const { userId, filmId, filmImage, filmName, watched, genres } = req.body;
+    console.log(userId, filmId, filmName, filmImage, watched, genres);
+    console.log(typeof filmId);
+    if (userId && filmName && filmId && filmImage && genres) {
+      console.log('genre number type', typeof genres[0]);
       try {
-        const query = { userId, filmId, filmName, filmImage };
+        const query = { userId, filmId, filmName, filmImage, genres };
         const update = {
           watched,
         };
