@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { AiOutlineStar } from 'react-icons/ai';
 import styled from 'styled-components';
+import { auth, provider } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -38,6 +39,10 @@ const film = () => {
     if (id) dispatch(fetchFilmById(id));
   }, [id]);
 
+  const handleSignIn = () => {
+    auth.signInWithPopup(provider);
+  };
+
   const filmObject = (watched) => {
     return {
       userId: userId,
@@ -60,6 +65,34 @@ const film = () => {
 
   const removeToListHandler = () => {
     dispatch(deleteFilmUserList({ userId, filmId: activeFilm.id }));
+  };
+
+  const loggedInBody = () => {
+    return (
+      <>
+        {userList.some((e) => e.filmId == activeFilm.id) ? (
+          <Button
+            text='- Remove from list'
+            clickHandler={() => removeToListHandler()}
+          />
+        ) : (
+          <Button
+            text='+ Add to list'
+            clickHandler={() => addToListHandler()}
+          />
+        )}
+        {WatchListBody()}
+      </>
+    );
+  };
+
+  const notLoggedInBody = () => {
+    return (
+      <>
+        <h3>Log in to add this movie to your list</h3>
+        <Button text='Log in with Google' clickHandler={() => handleSignIn()} />
+      </>
+    );
   };
 
   const WatchListBody = () => {
@@ -121,18 +154,7 @@ const film = () => {
               </ActorsNames>
 
               <ButtonContainer>
-                {userList.some((e) => e.filmId == activeFilm.id) ? (
-                  <Button
-                    text='- Remove from list'
-                    clickHandler={() => removeToListHandler()}
-                  />
-                ) : (
-                  <Button
-                    text='+ Add to list'
-                    clickHandler={() => addToListHandler()}
-                  />
-                )}
-                {WatchListBody()}
+                {userId ? loggedInBody() : notLoggedInBody()}
               </ButtonContainer>
             </Infos>
           </Header>

@@ -60,6 +60,7 @@ const userSlice = createSlice({
       state.userEmail = null;
       state.userId = null;
       state.userImage = null;
+      state.userList = [];
     },
   },
   extraReducers: (builder) => {

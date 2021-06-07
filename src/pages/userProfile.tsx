@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
+import { auth, provider } from '../../firebase';
 import UserAvatar from '../components/NavBar/UserAvatar';
 import {
   selectUserEmail,
@@ -14,6 +15,7 @@ import FilmCard from '../components/Card/FilmCard';
 import { selectGenre } from '../reducers/genreSlice';
 import GenreChart from '../components/GenreChart';
 import GenreChart2 from '../components/GenreChart2';
+import Button from '../components/Button';
 
 const userProfile = () => {
   const [filter, setFilter] = useState('all');
@@ -24,6 +26,10 @@ const userProfile = () => {
   const userImage = useSelector(selectUserImage);
   const userList = useSelector(selectUserList);
   const genresList = useSelector(selectGenre);
+
+  const handleSignIn = () => {
+    auth.signInWithPopup(provider);
+  };
 
   const clickHandler = (id) => {
     router.push(`/film?id=${id}`);
@@ -89,7 +95,15 @@ const userProfile = () => {
 
   const bodyWithoutResult = () => {
     if (!userEmail) {
-      return <h1>Please login</h1>;
+      return (
+        <NotLoggedBody>
+          <NotLoggedTitle>Please log in to see your profile</NotLoggedTitle>
+          <Button
+            text='Log in with Google'
+            clickHandler={() => handleSignIn()}
+          />
+        </NotLoggedBody>
+      );
     } else {
       return (
         <>
@@ -215,3 +229,17 @@ const NoContentContainer = styled.section`
 `;
 
 const NoContentText = styled.h1``;
+
+const NotLoggedBody = styled.section`
+  width: 60%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  flex-direction: center;
+  align-items: center;
+`;
+
+const NotLoggedTitle = styled.h2`
+  text-align: center;
+  margin-bottom: 40px;
+`;
